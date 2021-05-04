@@ -13,7 +13,7 @@
       },
       {
         "type": "text",
-        "text": "微分積分１",
+        "text": "微分積分２",
         "weight": "bold",
         "size": "xxl",
         "margin": "md"
@@ -61,10 +61,9 @@
           {
             "type": "button",
             "action": {
-              "type": "datetimepicker",
+              "type": "message",
               "label": "提出期限を変更",
-              "data": "hello",
-              "mode": "date"
+              "text": "[提出期限を変更]"
             },
             "style": "primary",
             "margin": "md"
@@ -74,7 +73,7 @@
             "action": {
               "type": "message",
               "label": "教科を変更",
-              "text": "[subject]"
+              "text": "[教科を変更]"
             },
             "style": "primary",
             "margin": "md"

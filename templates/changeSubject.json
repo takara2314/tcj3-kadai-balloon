@@ -1,0 +1,144 @@
+{
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "教科を変更",
+        "weight": "bold",
+        "color": "#1DB446",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "size": "md",
+        "margin": "md",
+        "text": "教科をタップしてください。"
+      },
+      {
+        "type": "text",
+        "text": "5月3日(月) のJ3Aの時間割より",
+        "size": "xs",
+        "color": "#aaaaaa",
+        "wrap": true
+      },
+      {
+        "type": "separator",
+        "margin": "md"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "1, 2限目",
+                "margin": "xl",
+                "gravity": "center",
+                "align": "end",
+                "size": "sm"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "キャリアデザイン１",
+                  "text": "キャリアデザイン１,A"
+                },
+                "height": "sm",
+                "flex": 3
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "3, 4限目",
+                "margin": "xl",
+                "gravity": "center",
+                "align": "end",
+                "size": "sm"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "微分積分２",
+                  "text": "微分積分２,A"
+                },
+                "height": "sm",
+                "flex": 3
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "5~8限目",
+                "margin": "xl",
+                "gravity": "center",
+                "align": "end",
+                "size": "sm"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "機械加工実習",
+                  "text": "機械加工実習,A"
+                },
+                "height": "sm",
+                "flex": 3
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "この中にはない教科を選ぶ",
+                  "text": "others,A"
+                },
+                "style": "primary",
+                "margin": "md"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "message",
+                  "label": "B組の課題情報を追加する",
+                  "text": "B"
+                },
+                "style": "primary",
+                "margin": "md"
+              }
+            ],
+            "margin": "md"
+          }
+        ],
+        "margin": "xxl"
+      }
+    ]
+  },
+  "styles": {
+    "footer": {
+      "separator": true
+    }
+  }
+}
