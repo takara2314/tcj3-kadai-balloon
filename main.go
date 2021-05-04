@@ -8,10 +8,6 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
-var (
-	bot *linebot.Client
-)
-
 func main() {
 	var err error
 
