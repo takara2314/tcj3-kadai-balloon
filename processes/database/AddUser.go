@@ -6,7 +6,7 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-func AddUsers(ctx *context.Context, client *firestore.Client, users *map[string][]interface{}, profile *map[string]interface{}) error {
+func AddUser(ctx *context.Context, client *firestore.Client, users *map[string][]interface{}, profile *map[string]interface{}) error {
 	_, err := client.Collection("users").
 		Doc((*profile)["line_id"].(string)).
 		Set(*ctx, *profile)

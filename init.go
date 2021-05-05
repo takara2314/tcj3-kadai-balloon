@@ -77,7 +77,6 @@ func init() {
 		log.Println(err)
 		panic(err)
 	}
-	defer dbClient.Close()
 
 	err = initInfo()
 	if err != nil {

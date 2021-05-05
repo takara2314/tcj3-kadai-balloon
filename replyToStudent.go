@@ -8,6 +8,7 @@ import (
 
 	"tcj3-kadai-tuika-kun/processes/addInfo"
 	"tcj3-kadai-tuika-kun/processes/changeSubject"
+	"tcj3-kadai-tuika-kun/processes/database"
 )
 
 func replyToStudent(event *linebot.Event, message string) {
@@ -183,6 +184,30 @@ func replyToStudent(event *linebot.Event, message string) {
 			flexChangeSubject,
 			"B",
 		)
+		if err != nil {
+			log.Println(err)
+			panic(err)
+		}
+
+	} else if strings.HasPrefix(message, "goodbye") {
+		var err error
+		var replyMessages []string = []string{
+			"あなたのユーザーデータを消しました。",
+
+			"また学籍番号を打てば再登録できます。",
+		}
+
+		err = database.RemoveUser(&dbCtx, dbClient, &users, event.Source.UserID)
+		if err != nil {
+			log.Println(err)
+			panic(err)
+		}
+
+		_, err = bot.ReplyMessage(
+			event.ReplyToken,
+			linebot.NewTextMessage(replyMessages[0]),
+			linebot.NewTextMessage(replyMessages[1]),
+		).Do()
 		if err != nil {
 			log.Println(err)
 			panic(err)
