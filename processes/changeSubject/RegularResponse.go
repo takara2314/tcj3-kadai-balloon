@@ -8,7 +8,12 @@ func RegularResponse(bot *linebot.Client, event *linebot.Event, flexChangeSubjec
 	var err error
 	var flexMessage linebot.FlexContainer
 
-	flexMessage, err = linebot.UnmarshalFlexMessageJSON(flexChangeSubject)
+	flex, err := editFlex(flexChangeSubject, class)
+	if err != nil {
+		return err
+	}
+
+	flexMessage, err = linebot.UnmarshalFlexMessageJSON(flex)
 	if err != nil {
 		return err
 	}

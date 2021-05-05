@@ -7,26 +7,28 @@ var (
 )
 
 type flexJson struct {
-	Contents []struct {
-		Type     string            `json:"type"`
-		Layout   string            `json:"layout"`
-		Contents []flexJsonContent `json:"contents"`
-	} `json:"contents"`
+	Contents []flexJsonContent `json:"contents"`
 }
 
 type flexJsonContent struct {
-	Type    string                `json:"type"`
-	Text    string                `json:"text,omitempty"`
-	Margin  string                `json:"margin,omitempty"`
-	Gravity string                `json:"gravity,omitempty"`
-	Align   string                `json:"align,omitempty"`
-	Size    string                `json:"size,omitempty"`
-	Action  flexJsonContentAction `json:"action,omitempty"`
-	Height  string                `json:"height,omitempty"`
-	Flex    int                   `json:"flex,omitempty"`
+	Type     string               `json:"type"`
+	Layout   string               `json:"layout"`
+	Contents []flexJsonContent2nd `json:"contents"`
 }
 
-type flexJsonContentAction struct {
+type flexJsonContent2nd struct {
+	Type    string                   `json:"type"`
+	Text    string                   `json:"text,omitempty"`
+	Margin  string                   `json:"margin,omitempty"`
+	Gravity string                   `json:"gravity,omitempty"`
+	Align   string                   `json:"align,omitempty"`
+	Size    string                   `json:"size,omitempty"`
+	Action  flexJsonContent2ndAction `json:"action,omitempty"`
+	Height  string                   `json:"height,omitempty"`
+	Flex    int                      `json:"flex,omitempty"`
+}
+
+type flexJsonContent2ndAction struct {
 	Type  string `json:"type"`
 	Label string `json:"label"`
 	Text  string `json:"text"`

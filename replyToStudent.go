@@ -79,8 +79,6 @@ func replyToStudent(event *linebot.Event, message string) {
 		}
 
 	} else if message == "[教科を変更]" {
-		changeSubject.HogeMaru = "a"
-
 		err := changeSubject.RegularResponse(
 			bot,
 			event,
