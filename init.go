@@ -6,15 +6,17 @@ import (
 	"log"
 	"tcj3-kadai-tuika-kun/processes/database"
 
+	"cloud.google.com/go/firestore"
 	"github.com/line/line-bot-sdk-go/linebot"
 
 	firebase "firebase.google.com/go"
-	_ "github.com/lib/pq"
 	"google.golang.org/api/option"
 )
 
 var (
 	bot         *linebot.Client
+	dbCtx       context.Context
+	dbClient    *firestore.Client
 	subjectList []string = []string{
 		"国語３",
 		"現代社会",
@@ -62,7 +64,7 @@ func init() {
 		panic(err)
 	}
 
-	dbCtx := context.Background()
+	dbCtx = context.Background()
 	sa := option.WithCredentialsFile("./tcj3-kadai-tuika-kun-firebase-adminsdk-mqxg5-96023eb6d4.json")
 	app, err := firebase.NewApp(dbCtx, nil, sa)
 	if err != nil {
@@ -70,22 +72,32 @@ func init() {
 		panic(err)
 	}
 
-	dbClient, err := app.Firestore(dbCtx)
+	dbClient, err = app.Firestore(dbCtx)
 	if err != nil {
 		log.Println(err)
 		panic(err)
 	}
 	defer dbClient.Close()
 
-	err = database.GetUsers(&dbCtx, dbClient, &users)
+	err = initInfo()
 	if err != nil {
 		log.Println(err)
 		panic(err)
+	}
+}
+
+func initInfo() error {
+	var err error
+
+	err = database.GetUsers(&dbCtx, dbClient, &users)
+	if err != nil {
+		return err
 	}
 
 	err = database.GetKadais(&dbCtx, dbClient, &kadais)
 	if err != nil {
-		log.Println(err)
-		panic(err)
+		return err
 	}
+
+	return nil
 }

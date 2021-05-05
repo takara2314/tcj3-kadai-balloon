@@ -20,7 +20,7 @@ func GetUsers(ctx *context.Context, client *firestore.Client, users *map[string]
 		}
 
 		profile := doc.Data()
-		var lineId string = profile["student_num"].(string)
+		var lineId string = profile["line_id"].(string)
 
 		(*users)[lineId] = append(
 			(*users)[lineId],
