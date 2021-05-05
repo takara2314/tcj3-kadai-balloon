@@ -46,13 +46,13 @@ func init() {
 
 	flexAddInfo, err = ioutil.ReadFile("./templates/addInfo.json")
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		panic(err)
 	}
 
 	flexChangeSubject, err = ioutil.ReadFile("./templates/changeSubject.json")
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		panic(err)
 	}
 }
