@@ -1,23 +1,21 @@
 package main
 
 import (
+	"context"
 	"io/ioutil"
 	"log"
+	"tcj3-kadai-tuika-kun/processes/database"
 
 	"github.com/line/line-bot-sdk-go/linebot"
+
+	firebase "firebase.google.com/go"
+	_ "github.com/lib/pq"
+	"google.golang.org/api/option"
 )
 
 var (
-	bot               *linebot.Client
-	subjectList       []string
-	flexAddInfo       []byte
-	flexChangeSubject []byte
-)
-
-func init() {
-	var err error
-
-	subjectList = []string{
+	bot         *linebot.Client
+	subjectList []string = []string{
 		"国語３",
 		"現代社会",
 		"日本語教育１",
@@ -43,6 +41,14 @@ func init() {
 		"キャリアデザイン１",
 		"PBL３",
 	}
+	flexAddInfo       []byte
+	flexChangeSubject []byte
+	users             map[string][]interface{} = make(map[string][]interface{}, 128)
+	kadais            map[string][]interface{} = make(map[string][]interface{}, 1024)
+)
+
+func init() {
+	var err error
 
 	flexAddInfo, err = ioutil.ReadFile("./templates/addInfo.json")
 	if err != nil {
@@ -51,6 +57,33 @@ func init() {
 	}
 
 	flexChangeSubject, err = ioutil.ReadFile("./templates/changeSubject.json")
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	dbCtx := context.Background()
+	sa := option.WithCredentialsFile("./tcj3-kadai-tuika-kun-firebase-adminsdk-mqxg5-96023eb6d4.json")
+	app, err := firebase.NewApp(dbCtx, nil, sa)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	dbClient, err := app.Firestore(dbCtx)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+	defer dbClient.Close()
+
+	err = database.GetUsers(&dbCtx, dbClient, &users)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	err = database.GetKadais(&dbCtx, dbClient, &kadais)
 	if err != nil {
 		log.Println(err)
 		panic(err)

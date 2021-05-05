@@ -5,5 +5,9 @@ import (
 )
 
 func replyTextMessage(event *linebot.Event, message string) {
-	replyToStudent(event, message)
+	if _, exist := users[event.Source.UserID]; exist {
+		replyToStudent(event, message)
+	} else {
+		replyToGuest(event, message)
+	}
 }
