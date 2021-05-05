@@ -10,4 +10,5 @@ require (
 	github.com/line/line-bot-sdk-go v7.8.0+incompatible
 	golang.org/x/text v0.3.6
 	google.golang.org/api v0.46.0
+	gopkg.in/yaml.v2 v2.2.8
 )

@@ -79,6 +79,8 @@ func replyToStudent(event *linebot.Event, message string) {
 		}
 
 	} else if message == "[教科を変更]" {
+		changeSubject.HogeMaru = "a"
+
 		err := changeSubject.RegularResponse(
 			bot,
 			event,
@@ -229,7 +231,7 @@ func replyToStudent(event *linebot.Event, message string) {
 }
 
 func isSubjectPrefix(message string) bool {
-	for _, subject := range subjectList {
+	for _, subject := range config.Subjects {
 		if strings.HasPrefix(message, subject) {
 			return true
 		}

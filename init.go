@@ -4,45 +4,25 @@ import (
 	"context"
 	"io/ioutil"
 	"log"
+	"tcj3-kadai-tuika-kun/processes/changeSubject"
 	"tcj3-kadai-tuika-kun/processes/database"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	"github.com/line/line-bot-sdk-go/linebot"
+	"gopkg.in/yaml.v2"
 
 	firebase "firebase.google.com/go"
 	"google.golang.org/api/option"
+
+	"tcj3-kadai-tuika-kun/types"
 )
 
 var (
-	bot         *linebot.Client
-	dbCtx       context.Context
-	dbClient    *firestore.Client
-	subjectList []string = []string{
-		"国語３",
-		"現代社会",
-		"日本語教育１",
-		"日本語教育２",
-		"微分積分２",
-		"代数・幾何２",
-		"化学",
-		"保健体育３",
-		"Level Up English１",
-		"Level Up English２",
-		"プログラミング２",
-		"情報工学３",
-		"WEBアプリケーション",
-		"電気電子回路",
-		"工業力学１",
-		"材料学",
-		"機械製図",
-		"機械加工実習",
-		"マイコン工学",
-		"計測工学",
-		"工学数理基礎１",
-		"工学数理基礎２",
-		"キャリアデザイン１",
-		"PBL３",
-	}
+	bot               *linebot.Client
+	dbCtx             context.Context
+	dbClient          *firestore.Client
+	config            types.ConfigYaml
 	flexAddInfo       []byte
 	flexChangeSubject []byte
 	users             map[string][]interface{} = make(map[string][]interface{}, 128)
@@ -51,6 +31,26 @@ var (
 
 func init() {
 	var err error
+
+	loc, err := time.LoadLocation("Asia/Tokyo")
+	if err != nil {
+		loc = time.FixedZone("Asia/Tokyo", 9*60*60)
+	}
+	time.Local = loc
+
+	configData, err := ioutil.ReadFile("config.yaml")
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	err = yaml.Unmarshal(configData, &config)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	changeSubject.Config = &config
 
 	flexAddInfo, err = ioutil.ReadFile("./templates/addInfo.json")
 	if err != nil {
