@@ -13,7 +13,12 @@ import (
 
 func replyToStudent(event *linebot.Event, message string) {
 	if strings.HasPrefix(message, "add") {
-		err := addInfo.Response(bot, event, flexAddInfo)
+		err := addInfo.Response(
+			bot,
+			event,
+			flexAddInfo,
+			users[event.Source.UserID][3].(string),
+		)
 		if err != nil {
 			log.Println(err)
 			panic(err)
@@ -83,7 +88,7 @@ func replyToStudent(event *linebot.Event, message string) {
 			bot,
 			event,
 			flexChangeSubject,
-			"J3A",
+			users[event.Source.UserID][3].(string),
 		)
 		if err != nil {
 			log.Println(err)

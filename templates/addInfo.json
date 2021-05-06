@@ -13,14 +13,14 @@
       },
       {
         "type": "text",
-        "text": "微分積分２",
+        "text": "${subject}",
         "weight": "bold",
         "size": "xl",
         "margin": "md"
       },
       {
         "type": "text",
-        "text": "J3A"
+        "text": "${class}"
       },
       {
         "type": "separator",
@@ -45,7 +45,7 @@
               },
               {
                 "type": "text",
-                "text": "5月10日(月) 10時30分",
+                "text": "${month}月${day}日(${weekday}) ${hour}時${minute}分",
                 "size": "sm",
                 "color": "#111111",
                 "align": "end"

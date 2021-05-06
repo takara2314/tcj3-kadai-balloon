@@ -2,23 +2,22 @@ package addInfo
 
 import "github.com/line/line-bot-sdk-go/linebot"
 
-func Response(bot *linebot.Client, event *linebot.Event, flexAddInfo []byte) error {
+func Response(bot *linebot.Client, event *linebot.Event, flexAddInfo []byte, class string) error {
 	var err error
 	var replyMessage string
-	var res *linebot.UserProfileResponse
 	var flexMessage linebot.FlexContainer
 
-	res, err = bot.GetProfile(event.Source.UserID).Do()
+	flex, err := editFlex(flexAddInfo, class)
 	if err != nil {
 		return err
 	}
 
-	flexMessage, err = linebot.UnmarshalFlexMessageJSON(flexAddInfo)
+	flexMessage, err = linebot.UnmarshalFlexMessageJSON(flex)
 	if err != nil {
 		return err
 	}
 
-	replyMessage = "課題のタイトルを教えてください。 " + res.DisplayName + " (" + event.Source.UserID + ")"
+	replyMessage = "課題のタイトルを教えてください。 "
 
 	_, err = bot.ReplyMessage(
 		event.ReplyToken,

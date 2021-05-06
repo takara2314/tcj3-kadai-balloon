@@ -15,8 +15,6 @@ func RegularResponse(bot *linebot.Client, event *linebot.Event, flexChangeSubjec
 		return err
 	}
 
-	fmt.Println(flex)
-
 	flexMessage, err = linebot.UnmarshalFlexMessageJSON(flex)
 	if err != nil {
 		fmt.Println("エラーが起こったよ！")
