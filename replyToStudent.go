@@ -83,7 +83,7 @@ func replyToStudent(event *linebot.Event, message string) {
 			bot,
 			event,
 			flexChangeSubject,
-			"A",
+			"J3A",
 		)
 		if err != nil {
 			log.Println(err)

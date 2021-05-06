@@ -1,6 +1,8 @@
 package changeSubject
 
 import (
+	"fmt"
+
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
@@ -13,8 +15,11 @@ func RegularResponse(bot *linebot.Client, event *linebot.Event, flexChangeSubjec
 		return err
 	}
 
+	fmt.Println(flex)
+
 	flexMessage, err = linebot.UnmarshalFlexMessageJSON(flex)
 	if err != nil {
+		fmt.Println("エラーが起こったよ！")
 		return err
 	}
 
@@ -23,6 +28,7 @@ func RegularResponse(bot *linebot.Client, event *linebot.Event, flexChangeSubjec
 		linebot.NewFlexMessage("教科を選んでください。", flexMessage),
 	).Do()
 	if err != nil {
+		fmt.Println("ERROR LOVE!")
 		return err
 	}
 

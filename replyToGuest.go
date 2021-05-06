@@ -126,12 +126,6 @@ func replyToGuest(event *linebot.Event, message string) {
 				class = "J3B"
 			}
 
-			fmt.Println(map[string]interface{}{
-				"line_id":     event.Source.UserID,
-				"line_name":   profile.DisplayName,
-				"student_num": studentNum,
-				"class":       class,
-			})
 			err = database.AddUser(&dbCtx, dbClient, &users, &map[string]interface{}{
 				"line_id":     event.Source.UserID,
 				"line_name":   profile.DisplayName,

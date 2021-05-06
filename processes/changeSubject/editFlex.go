@@ -51,15 +51,15 @@ func editFlex(base []byte, class string) ([]byte, error) {
 	)
 
 	var lectures []flexJsonContent
-	var schedule *map[string]string
+	var schedule map[string]string
 	switch class {
 	case "J3A":
-		schedule = &Config.Schedules.A[weekday-1]
+		schedule = Config.Schedules.A[weekday-1]
 	case "J3B":
-		schedule = &Config.Schedules.B[weekday-1]
+		schedule = Config.Schedules.B[weekday-1]
 	}
 
-	for period, subject := range *schedule {
+	for period, subject := range schedule {
 		subject = strings.TrimPrefix(subject, "&")
 
 		lecture := flexJsonContent{
@@ -76,7 +76,7 @@ func editFlex(base []byte, class string) ([]byte, error) {
 				},
 				{
 					Type: "button",
-					Action: flexJsonContent2ndAction{
+					Action: &flexJsonContent2ndAction{
 						Type:  "message",
 						Label: subject,
 						Text:  subject + "," + classLetter,
