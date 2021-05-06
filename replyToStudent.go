@@ -2,16 +2,21 @@ package main
 
 import (
 	"log"
+	"regexp"
 	"strings"
+	"time"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 
 	"tcj3-kadai-tuika-kun/processes/addInfo"
 	"tcj3-kadai-tuika-kun/processes/changeSubject"
 	"tcj3-kadai-tuika-kun/processes/database"
+	"tcj3-kadai-tuika-kun/processes/setDue"
 )
 
 func replyToStudent(event *linebot.Event, message string) {
+	dueReg := regexp.MustCompile(`^((([0-9]|[０-９]){1,2})(月|\/|-)(([0-9]|[０-９]){1,2})(日|)|今日|本日|明日|明後日|明々後日|(今週|来週|再来週|)(日|月|火|水|木|金|)(曜日|))( |　|)((([0-9]|[０-９]){1,2})(時|:|-)(([0-9]|[０-９]){0,2})(分|)|([1-9]|[１-９])(限目|限))$`)
+
 	if strings.HasPrefix(message, "add") {
 		err := addInfo.Response(
 			bot,
@@ -77,6 +82,21 @@ func replyToStudent(event *linebot.Event, message string) {
 			event.ReplyToken,
 			linebot.NewTextMessage(replyMessages[0]),
 			linebot.NewTextMessage(replyMessages[1]),
+		).Do()
+		if err != nil {
+			log.Println(err)
+			panic(err)
+		}
+
+	} else if dueReg.MatchString(message) {
+		var err error
+		var due time.Time = setDue.SetDue(dueReg.FindStringSubmatch(message))
+
+		var replyMessage string = due.Format("2006年1月2日 15時4分5秒")
+
+		_, err = bot.ReplyMessage(
+			event.ReplyToken,
+			linebot.NewTextMessage(replyMessage),
 		).Do()
 		if err != nil {
 			log.Println(err)
