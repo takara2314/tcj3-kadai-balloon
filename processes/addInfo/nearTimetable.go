@@ -45,7 +45,7 @@ func nearTimetable(class string, weekday int) (subject string, targetClass strin
 
 			if strings.HasPrefix(configSubject[1], "&") {
 				subject = strings.TrimPrefix(configSubject[1], "&")
-				targetClass = "J3A & J3B"
+				targetClass = "J3A, J3B"
 			} else {
 				subject = configSubject[1]
 				targetClass = class
@@ -53,7 +53,7 @@ func nearTimetable(class string, weekday int) (subject string, targetClass strin
 		}
 	}
 
-	if matched == false {
+	if !matched {
 		var oldday time.Time = time.Now()
 
 		switch weekday {
@@ -89,7 +89,7 @@ func nearTimetable(class string, weekday int) (subject string, targetClass strin
 
 		if strings.HasPrefix(schedules[weekday-1][lecture_num-1][1], "&") {
 			subject = strings.TrimPrefix(schedules[weekday-1][lecture_num-1][1], "&")
-			targetClass = "J3A & J3B"
+			targetClass = "J3A, J3B"
 		} else {
 			subject = schedules[weekday-1][lecture_num-1][1]
 			targetClass = class

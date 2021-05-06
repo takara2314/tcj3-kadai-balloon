@@ -4,6 +4,7 @@ import (
 	"context"
 	"io/ioutil"
 	"log"
+	"tcj3-kadai-tuika-kun/processes/addInfo"
 	"tcj3-kadai-tuika-kun/processes/changeSubject"
 	"tcj3-kadai-tuika-kun/processes/database"
 	"time"
@@ -50,6 +51,7 @@ func init() {
 		panic(err)
 	}
 
+	addInfo.Config = &config
 	changeSubject.Config = &config
 
 	flexAddInfo, err = ioutil.ReadFile("./templates/addInfo.json")

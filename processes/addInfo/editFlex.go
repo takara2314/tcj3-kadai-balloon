@@ -41,7 +41,7 @@ func editFlex(base []byte, class string) ([]byte, error) {
 	result = strings.Replace(
 		result,
 		"${weekday}",
-		strconv.Itoa(int(due.Weekday())),
+		[]string{"日", "月", "火", "水", "木", "金", "土"}[int(due.Weekday())],
 		1,
 	)
 	result = strings.Replace(
